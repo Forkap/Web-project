@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block head %}
+	{{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index_style.css') }}">
+{% endblock %}
+{% block main %}
+	<main>
+		<div class="main">
+			<div class="big_logo">
+				<div class="logo_back">
+					<img src="{{ url_for('static', filename='img/logo.svg') }}" alt="" class="logo">
+				</div>
+			</div>
+			<div class="few_information_about_site">
+				<div class="information_for_site">
+					<p class="text_header">
+						Немного о нашем сайте
+					</p>
+					<p>Много кокого-то текста</p>
+					<p>Много кокого-то текста</p>
+					<p>Много кокого-то текста</p>
+					<p>Много кокого-то текста</p>
+					<p>Много кокого-то текста</p>
+				</div>
+			</div>
+			<div class="popular_tegs">
+				<div class="p_tegs_header">
+					<p>Популярные теги</p>
+				</div>
+				<div class="teg_block">
+					<p class="teg_name">Название тега</p><!-- Сделать цикл -->
+					<div class="teg_imgs"><!-- Сделать скрипт пролистывания -->
+						<img src="{{ url_for('static', filename='posts_imgs/pig.jpg') }}" alt="" class="no_now_img"><!--Если пусто делать невидемым-->
+						<img src="{{ url_for('static', filename='posts_imgs/Img.jpg') }}" alt="" class="now_img">
+						<img src="{{ url_for('static', filename='posts_imgs/pig.jpg') }}" alt="" class="no_now_img">
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}
