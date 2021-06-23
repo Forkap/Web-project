@@ -99,9 +99,11 @@ input[type=text]:active , input[type=password]:active {
 }
 .preview {
 	display: none;
-	background: url(transparentBackground.png);
-	margin: 4px 0px 16px;
-	width: 100%;
+	background: url(../img/transparentBackground.png);
+	border: 2px solid #aaa;
+    border-radius: 4px;
+    margin: 4px 0px 16px;
+    width: calc(100% - 4px);
 }
 .error_message {
 	color: #ff0000;

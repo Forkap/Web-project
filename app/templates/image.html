@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block header %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/image_page.css')}}">
+{% endblock %}
+{% main block %}
+    <main>
+        <div class="img_block">
+            <img class = 'IMG' src="img/1473537864145877595.jpg" alt="Вставить текст">
+            <a href = "img/золото.png" target="_blank">
+                <div class = "open_img_block">
+                    <img class="l-U-p-A" src="img/img_534826.png">
+                </div>
+            </a>
+        </div>
+    </main>
+{% endblock %}

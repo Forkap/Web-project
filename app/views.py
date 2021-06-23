@@ -2,11 +2,21 @@ from app import app
 from flask import render_template, request, url_for, flash, make_response, session, redirect
 from flask_login import login_required, login_user, current_user, logout_user
 from .models import User, Post, Tag, db
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, UploadForm
 current_user: User
+
 
 @app.route('/')
 def index():
+    # t1 = Tag(name="лес")
+    # p1 = Post(img_path="posts_img/pig.jpg", user_id=db.session.query(User).filter(User.username == 'Forkap').first().id,
+    #           main_tag=t1.name)
+    # p1.tags.append(t1)
+    # db.session.add(p1)
+    # print(db.session.new)
+    t1 = db.session.query(Tag).filter(Tag.name == "Свин").first()
+    p1 = db.session.query(Post).filter(Post.id == 1).first()
+    print(t1.get_post_count())
     return render_template('index.html')
 
 
@@ -63,3 +73,12 @@ def registration():
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('index'))
     return render_template('registration.html', form=form)
+
+
+@app.route('/upload/', methods=['GET', 'POST'])
+@login_required
+def upload():
+    form = UploadForm()
+    if form.validate_on_submit():
+        pass
+    return render_template('upload.html', form=form)
