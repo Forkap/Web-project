@@ -1,0 +1,108 @@
+body {
+	font-family: 'Calibri';
+	font-size: 14pt;
+	background-color: #ffd600;
+	color: #ffffff;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+h1 {
+	font-size: 30pt;
+}
+.no_margin {
+	margin: 0px;
+}
+main {
+	margin: 0px auto;
+	width: 90%;
+	max-width: 1280px;
+}
+.form_box {
+	max-width: 400px;
+	background-color: #000000;
+	padding: 25px;
+	margin: auto;
+	color: #ffffff;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.8);
+}
+.form_title {
+	font-size: 24pt;
+	margin: 0px 0px 16px;
+}
+input[type="file"]::file-selector-button {
+	display: inline;
+	width: auto;
+	margin: 4px 8px 8px 0px;
+	padding: 6px 0px;
+	font-size: 16px;
+	border: 2px solid #ccb500;
+	border-radius: 4px;
+	transition-duration: 0.1s;
+	background-color: #ffd600;
+	color: #000000;
+	box-shadow: 0 2px #ccb500;
+}
+.fake_button {
+	display: block;
+	width: 100%;
+	margin: 20px 0px 20px;
+	padding: 6px 10px;
+	font-size: 20px;
+	border: 2px solid #ccb500;
+	border-radius: 4px;
+	transition-duration: 0.1s;
+	background-color: #ffd600;
+	color: #000000;
+	box-shadow: 0 2px #ccb500;
+}
+input[type=submit] {
+	display: none;
+	width: 100%;
+	margin: 20px 0px 20px;
+	padding: 6px 0px;
+	font-size: 20px;
+	border: 2px solid #ccb500;
+	border-radius: 4px;
+	transition-duration: 0.1s;
+	background-color: #ffd600;
+	color: #000000;
+	box-shadow: 0 2px #ccb500;
+}
+input[type=submit]:hover, input[type="file"]::file-selector-button:hover, .fake_button:hover {
+	transform: scale(1.2 1.2);
+}
+input[type=submit]:active, input[type="file"]::file-selector-button:active, .fake_button:active  {
+	filter: brightness(60%);
+	box-shadow: 0 0px #ccb500;
+	transform: translateY(2px);
+}
+input[type=text], input[type=password] {
+	display: block;
+	width: 100%;
+	margin: 4px 0px 4px;
+	padding: 6px 0px;
+	font-size: 18px;
+	border: 2px solid #aaa;
+	border-radius: 4px;
+	transition-duration: 0.1s;
+	background-color: #ffffff;
+	color: #000000;
+}
+input[type=text]:hover , input[type=password]:hover {
+	filter: brightness(110%);
+}
+input[type=text]:active , input[type=password]:active {
+	filter: brightness(60%);
+}
+.preview {
+	display: none;
+	background: url(transparentBackground.png);
+	margin: 4px 0px 16px;
+	width: 100%;
+}
+.error_message {
+	color: #ff0000;
+}

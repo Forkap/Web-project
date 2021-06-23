@@ -14,7 +14,7 @@ main{
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: 100% auto;
-	background-image: url(img/main-background.webp);
+	background-image: url(../img/main-background.webp);
 }
 
 main:after{
@@ -47,7 +47,7 @@ div.big_logo{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-image: url(img/boots.webp);
+	background-image: url(../img/boots.webp);
 	background-repeat: no-repeat;
 	background-size: calc(100% + 20px) calc(100% + 30vh);
 }

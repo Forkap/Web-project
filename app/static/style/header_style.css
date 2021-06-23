@@ -4,6 +4,10 @@
 	outline: none;
 }
 
+a{
+	text-decoration: none;
+}
+
 header{
 	display: flex;
 	justify-content: space-between;
@@ -26,7 +30,8 @@ nav{
 	margin-right: 40px;
 }
 
-nav > p{
+nav  p{
+	color: black;
 	font-size: 20px;
 	font-weight: 600;
 	margin-left: 20px;
@@ -59,3 +64,4 @@ footer p{
 	margin-left: 20px;
 
 }
+

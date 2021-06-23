@@ -29,6 +29,7 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+
 post_tags = db.Table('post_tags',
                      db.Column('post_id', db.Integer(), db.ForeignKey('posts.id')),
                      db.Column('tag_id', db.Integer(), db.ForeignKey('tags.id'))

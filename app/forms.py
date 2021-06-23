@@ -13,15 +13,31 @@ def chars_validate(form, field):
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField("Name: ", validators=[DataRequired(), chars_validate()])
-    email = StringField("Email: ", validators=[Email()])
-    password = PasswordField("Password: ", validators=[DataRequired(), Length(min=6,
-                                                                              message='Длина пароля должна быть не меньше 6-ти символов.0')])
-    confirm_password = PasswordField("Password: ", validators=[DataRequired(), Length(min=6), EqualTo('password',
-                                                                                                      message="Пароль должны совподать.")])
-    submit = SubmitField('Зарегестрироваться')
+    username = StringField(label="Логин: ",
+                           validators=[DataRequired()], id='username')
+    email = StringField(label="Email: ",
+                        validators=[Email()]
+                        )
+    password = PasswordField(label="Пароль: ",
+                             validators=[DataRequired(),
+                                         Length(min=6, message='Длина пароля должна быть не меньше 6-ти символов.0')],
+                             id="password1"
+                             )
+    confirm_password = PasswordField(label="Повторите пароль: ",
+                                     validators=[DataRequired(),
+                                                 Length(min=6), EqualTo('password', message="Пароль должны совподать.")]
+                                     , id="password2"
+                                     )
+    remember_me = BooleanField(label="Запомнить меня: ")
+    submit = SubmitField('Зарегестрироваться', id='submit')
 
 
 class LoginForm(FlaskForm):
-    login = StringField("Login: ", validators=[DataRequired(), ])
-    # Дописать
+    login = StringField(label="Логин: ", validators=[DataRequired()], id="username")
+    password = PasswordField(label="Пароль: ",
+                             validators=[DataRequired(),
+                                         Length(min=6, message='Длина пароля должна быть не меньше 6-ти символов.0')],
+                             id="password"
+                             )
+    remember_me = BooleanField(label="Запомнить меня: ")
+    submit = SubmitField(label='Войти', id="submit")

@@ -3,20 +3,32 @@
 <html lang="en">
 <head>
 	{% block head %}
+	<title>
+        {% if title %}
+            {{ title }}
+        {% else %}
+            no title
+        {% endif %}
+    </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='header_style.css') }}">
-    <title>header</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/header_style.css') }}">
     {% endblock %}
 
 </head>
 <body>
 	<header>
-		<img src="{{ url_for('static', filename='img/logo.svg') }}" alt="" class="logo_img">
+		<a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/logo.svg') }}" alt="" class="logo_img"></a>
 		<nav>
-			<p>Главная</p>
-			<p>Регистрация</p>
-			<p>Войти</p>
+			{% if not current_user.is_anonymous %}
+			<a href="{{ url_for('index') }}"><p>Главная</p></a>
+				<p>Профиль</p>
+				<a href="{{ url_for('logout') }}"><p>Выйти</p></a>
+			{% else %}
+				<a href="{{ url_for('index') }}"><p>Главная</p></a>
+				<a href="{{ url_for('registration') }}"><p>Регистрация</p></a>
+				<a href="{{ url_for('login') }}"><p>Войти</p></a>
+			{% endif %}
 		</nav>
 	</header>
 	{% block main %}
