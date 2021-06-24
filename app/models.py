@@ -35,6 +35,7 @@ post_tags = db.Table('post_tags',
                      db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'))
                      )
 
+
 class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer(), primary_key=True)

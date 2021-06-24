@@ -9,7 +9,11 @@
     <main>
         <div class=form_box>
             <h2 class=form_title>Добавить изображение</h2>
-            <form action="{{ url_for('upload') }}" method="post" id="uploadForm">
+            {% for flash in  get_flashed_messages()%}
+                <p style="color: red">{{ flash }}</p>
+            {% endfor %}
+            <form action="{{ url_for('upload') }}" method="post", enctype="multipart/form-data">
+                {{ form.csrf_token() }}
                 {% for field in form if (field.name != 'csrf_token') and (field.name != 'submit') and (field.name != 'file') %}
                     <p>{{ field.label() }}</p>
                     {{ field() }}
@@ -21,9 +25,7 @@
                 <img class="preview" id="preview" src="//:0"/>
                 {{ form.submit() }}
             </form>
-            <button class="fake_button" id="fakeButton" onclick="writeError()">Загрузить файл</button>
-            <div class="error_message" id="errorMessage">
-            </div>
+
         </div>
     </main>
 {% endblock %}

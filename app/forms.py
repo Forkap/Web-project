@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import Form, ValidationError
-from wtforms import StringField, SubmitField, TextField, BooleanField, PasswordField, HiddenField, FileField
+from wtforms import StringField, SubmitField, TextField, BooleanField, PasswordField, HiddenField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
+from flask_wtf.file import FileField, FileAllowed
 import email_validator
 
 
@@ -16,10 +17,14 @@ def check_tags(form, field):
     if not field.data:
         return
     list_ = field.data.split(" ")
-    print(list_)
     for tag in list_:
         if tag[0] != '#':
             raise ValidationError("Теги должны содержать в начале знак #.\n Например: '#Море #Природа #Семья'")
+
+
+def check_main_tag(form, field):
+    if len(field.data.split(" ")) > 1:
+        raise ValidationError("Главный тэг должен состоять из одного слова.")
 
 
 class RegistrationForm(FlaskForm):
@@ -35,7 +40,7 @@ class RegistrationForm(FlaskForm):
                              )
     confirm_password = PasswordField(label="Повторите пароль: ",
                                      validators=[DataRequired(),
-                                                 Length(min=6), EqualTo('password', message="Пароль должны совподать.")]
+                                                 Length(min=6), EqualTo('password', message="Пароли должны совподать.")]
                                      , id="password2"
                                      )
     remember_me = BooleanField(label="Запомнить меня: ")
@@ -63,7 +68,7 @@ class NextImg(FlaskForm):
 
 
 class UploadForm(FlaskForm):
-    main_tag = StringField(label="Основной тег:", validators=[check_tags], id="filename")
+    main_tag = StringField(label="Основной тег:", validators=[DataRequired(), check_tags, check_main_tag], id="filename")
     other_tags = StringField(label="Еще теги:", validators=[check_tags])
-    file = FileField(label="Выберите файл", id="file")
+    file = FileField(label="Выберите файл", id="file", validators=[DataRequired(), FileAllowed(['png', 'jpg', 'svg'])])
     submit = SubmitField(label='Загрузить файл', id="submit")

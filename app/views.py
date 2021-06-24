@@ -3,20 +3,12 @@ from flask import render_template, request, url_for, flash, make_response, sessi
 from flask_login import login_required, login_user, current_user, logout_user
 from .models import User, Post, Tag, db
 from .forms import LoginForm, RegistrationForm, UploadForm
+from datetime import datetime
 current_user: User
 
 
 @app.route('/')
 def index():
-    # t1 = Tag(name="лес")
-    # p1 = Post(img_path="posts_img/pig.jpg", user_id=db.session.query(User).filter(User.username == 'Forkap').first().id,
-    #           main_tag=t1.name)
-    # p1.tags.append(t1)
-    # db.session.add(p1)
-    # print(db.session.new)
-    t1 = db.session.query(Tag).filter(Tag.name == "Свин").first()
-    p1 = db.session.query(Post).filter(Post.id == 1).first()
-    print(t1.get_post_count())
     return render_template('index.html')
 
 
@@ -78,7 +70,48 @@ def registration():
 @app.route('/upload/', methods=['GET', 'POST'])
 @login_required
 def upload():
+    def check_tag(tag) -> Tag:
+        res = db.session.query(Tag).filter(Tag.name == tag).first()
+        if res is None:
+            new_tag = Tag(name=tag)
+            return new_tag
+        return res
     form = UploadForm()
     if form.validate_on_submit():
-        pass
+        main_tag = form.main_tag.data.replace(' ', '')
+        main_tag = main_tag.replace('#', '').lower()
+        other_tags = ''.join(form.other_tags.data.split(' ')).split('#')
+        img = form.file.data
+        format_dict = {
+            'jpeg': 'jpg',
+            'png': 'png'
+        }
+        format = format_dict.get(img.headers['Content-Type'].split('/')[1])
+        file_path = 'app'+url_for('static', filename=f'posts_imgs/{current_user.id}{datetime.today().strftime("%S%M%H%d%m%y")}.{format}')
+        with open(file_path, 'wb') as new_image:
+            new_image.write(img.read())
+        post = Post(img_path=file_path, user_id=current_user.id, main_tag=main_tag)
+
+        tag = check_tag(main_tag)
+        post.tags.append(tag)
+        db.session.add(tag)
+
+        for tag in other_tags:
+            if tag == '':
+                continue
+            tag = tag.lower()
+            tag = check_tag(tag)
+            post.tags.append(tag)
+            db.session.add(tag)
+
+        db.session.add(post)
+        db.session.commit()
+
+        return redirect(url_for('upload'))
+
     return render_template('upload.html', form=form)
+
+@app.route("/image/")
+def image():
+    return render_template('image.html')
+
