@@ -4,6 +4,10 @@
 	outline: none;
 }
 
+html{
+	font-family: 'Roboto',Arial,sans-serif;
+}
+
 a{
 	text-decoration: none;
 }
@@ -22,6 +26,40 @@ img.logo_img{
 	margin-left: 40px;
 	width: auto;
 	height: 40px;
+}
+form.search{
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.searchField{
+	width: 17vw;
+	height: 30px;
+	padding-left: 10px;
+	border-radius: 20px;
+	font-size: 20px;
+}
+
+div.search_hints{
+	color: black;
+	display: none;
+	background-color: white;
+	padding: 10px;
+	position: absolute;
+	top: 30px;
+	width: 100%;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 20vh;
+	z-index: 4;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.8);
+
+}
+
+div.search_hints:focus{
+	display: flex;
 }
 
 nav{

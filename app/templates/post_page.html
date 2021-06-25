@@ -6,23 +6,26 @@
 {% block main %}
     <main>
             <div class="img_and_text_block">
-                <div class="img_block">
-                    <img class = 'IMG' src="{{url_for('static', filename='test_img/Снимок.png')}}" alt="Вставить текст">
-                </div>
+
+                <img class = 'IMG' src="{{url_for('static', filename=img.img_path)}}" alt="Вставить текст">
+
                 <div class = "text_block">
                     <div class = 'text_info'>
-                        <h1>Название картинки</h1>
+                        <h1>#{{ img.main_tag|title }}</h1>
                     </div>
                     <div class = 'block_1'>
                         <div class="username">
                             <p class="username">
-                                 Загружено: <a class = 'href_name' href="#">ИМЯ ПОЛЬЗОВАТЕЛЯ</a>
+                                 Загружено: <a class = 'href_name' href="{{ url_for('user_page', id=img.user_id) }}">{{ username }}</a>
                             </p>
                         </div>
                         <div class="div_save_button">
-                            <form>
-                                <button class="save_button">Сохранить</button>
-                            </form>
+                            <div class="save_button">
+                                <a href="{{url_for('static', filename=img.img_path)}}" download>Скачать</a>
+                            </div>
+                            <div class="save_button">
+                                <a href="{{url_for('delete', id=img.id)}}" >Удалить</a>
+                            </div>
                         </div>
                     </div>
 

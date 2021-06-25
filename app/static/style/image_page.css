@@ -4,6 +4,10 @@
     outline: none;
 }
 
+a{
+    text-decoration: none;
+}
+
 /* Родительский блок для блока с изображением и текстовым блоком */
 body{
     min-height: 100vh;
@@ -24,19 +28,13 @@ main{
     align-items: center;
     width: auto;
 }
-/* Блок с изображением */
-.img_block{
-    box-shadow: 0 0 5px;
-    border-radius: 25px;
-    overflow:hidden;
-    width: min-content;
-    height: min-content;
-    margin-bottom: 10px;
-    margin-top: 2vh;
-}
 
 /* Класс с главным изображением */
 .IMG {
+    margin-top: 2vh;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px;
+    border-radius: 25px;
     max-width: 50vw;
     max-height: 50vh;
     width: auto;
@@ -86,8 +84,14 @@ main{
     height: min-content;
 }
 
+.div_save_button{
+
+}
+
 /* Сама кнопка сохранения */
 .save_button{
+    display: flex;
+    justify-content: center;
     padding-top: 10px;
     padding-bottom: 10px;
     max-width: 100%;
@@ -101,6 +105,10 @@ main{
     color: white;
     font-size: 17px;
     word-wrap: break-word;
+}
+
+.save_button a{
+    color: white;
 }
 
 

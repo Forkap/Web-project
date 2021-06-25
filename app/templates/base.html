@@ -14,15 +14,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/header_style.css') }}">
     {% endblock %}
+	<script>
+		var r_path = '{{ url_for("get_hints") }}';
+	</script>
+	<script defer src="{{ url_for('static', filename='js/search.js') }}"></script>
 
 </head>
 <body>
 	<header>
 		<a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/logo.svg') }}" alt="" class="logo_img"></a>
+		{% if search_form %}
+			<form id="searchForm" action="{{ url_for('search') }}", method="post" class="search">
+				{{ search_form.csrf_token() }}
+				{{ search_form.search(autocomplete="off", class='searchField') }}
+				<div id="hints" class="search_hints">
+				</div>
+			</form>
+		{% endif %}
+
 		<nav>
 			{% if not current_user.is_anonymous %}
-			<a href="{{ url_for('index') }}"><p>Главная</p></a>
-				<p>Профиль</p>
+				<a href="{{ url_for('index') }}"><p>Главная</p></a>
+				<a href="{{ url_for('user_page', id=current_user.id) }}"><p>Профиль</p></a>
 				<a href="{{ url_for('logout') }}"><p>Выйти</p></a>
 			{% else %}
 				<a href="{{ url_for('index') }}"><p>Главная</p></a>

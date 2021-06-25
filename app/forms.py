@@ -72,3 +72,8 @@ class UploadForm(FlaskForm):
     other_tags = StringField(label="Еще теги:", validators=[check_tags])
     file = FileField(label="Выберите файл", id="file", validators=[DataRequired(), FileAllowed(['png', 'jpg', 'svg'])])
     submit = SubmitField(label='Загрузить файл', id="submit")
+
+
+class SearchForm(FlaskForm):
+    search = StringField(label='Поиск:', validators=[DataRequired()], id='searchField')
+    submit = SubmitField(label='Отправить')

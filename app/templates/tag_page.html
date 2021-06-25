@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block head %}
+	{{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/tag_page.css') }}">
+{% endblock %}
+{% block main %}
+    <main>
+        <div class="header">
+            <div class="tag_info">
+                <p class="name">{{ tag.name | title}}</p>
+                <p>Количество постов: {{ posts_count }}</p>
+                <p>Количество просмотров: {{ tag.views }}</p>
+            </div>
+            <div class="upload">
+                <a href="{{ url_for('upload', def_name=tag.name) }}"><img class="cross" src="{{ url_for('static', filename='img/cross.svg') }}" alt=""></a>
+            </div>
+        </div>
+        <div class="posts">
+            {% for post in tag.posts %}
+            <div class="post">
+                <div class="img">
+                    <a href="{{ url_for('post_page', id=post.id) }}"><img src="{{ url_for('static', filename=post.img_path) }}" alt=""></a>
+                    <div class="img_name">#{{ post.main_tag|title }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

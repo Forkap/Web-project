@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block head %}
+	{{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/user_page.css') }}">
+{% endblock %}
+{% block main %}
+    <main>
+        <div class="header">
+            <div class="user_info">
+                <img src="{{ url_for('static', filename=current_user.avatar_path) }}" alt="">
+                <div class="text_info">
+                    <p class="name">{{ current_user.username }}</p>
+                    <p>Подписчики {{ followers }}</p>
+                    <p>Подписки {{ followed }}</p>
+                </div>
+            </div>
+            <div class="upload">
+                <a href="{{ url_for('upload') }}"><img class="cross" src="{{ url_for('static', filename='img/cross.svg') }}" alt=""></a>
+            </div>
+        </div>
+        <div class="posts">
+            {% for post in current_user.posts %}
+            <div class="post">
+                <div class="img">
+                    <a href="{{ url_for('post_page', id=post.id) }}"><img src="{{ url_for('static', filename=post.img_path) }}" alt=""></a>
+                    <div class="img_name">#{{ post.main_tag|title }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

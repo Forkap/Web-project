@@ -7,18 +7,29 @@ from werkzeug.security import generate_password_hash, check_password_hash
 def load_user(user_id):
     return db.session.query(User).get(user_id)
 
+followers = db.Table('followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
+)
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(100))
     username = db.Column(db.String(50), nullable=False, unique=True)
+    avatar_path = db.Column(db.Text())
     email = db.Column(db.String(100), nullable=False, unique=True)
     role = db.Column(db.Text(), nullable=False)
     password_hash = db.Column(db.Text(), nullable=False)
     posts = db.relationship('Post', backref='user', cascade='all,delete-orphan')
     create_on = db.Column(db.DateTime(), default=datetime.utcnow)
     updated_on = db.Column(db.DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
+    followed = db.relationship('User',
+                               secondary=followers,
+                               primaryjoin=(followers.c.follower_id == id),
+                               secondaryjoin=(followers.c.followed_id == id),
+                               backref=db.backref('followers', lazy='dynamic'),
+                               lazy='dynamic')
 
     def __repr__(self):
         return f'<id:{self.id} username:{self.username}>'
@@ -28,6 +39,19 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+            return self
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+            return self
+
+    def is_following(self, user):
+        return self.followed.filter(followers.c.followed_id == user.id).count() > 0
 
 
 post_tags = db.Table('post_tags',
